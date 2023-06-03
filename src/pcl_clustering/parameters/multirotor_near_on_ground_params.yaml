@@ -1,0 +1,66 @@
+!!python/object/new:dynamic_reconfigure.encoding.Config
+dictitems:
+  cluster_threshold: 0.14
+  floor_segmentor_dist_threshold: 0.2
+  groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+    dictitems:
+      floor_segmentor_dist_threshold: 0.2
+      groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+        dictitems:
+          euclidian_clustering_group: !!python/object/new:dynamic_reconfigure.encoding.Config
+            dictitems:
+              cluster_threshold: 0.14
+              groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+                state: []
+              id: 1
+              max_cluster_points: 25000
+              min_cluster_points: 107
+              name: euclidian_clustering_group
+              parameters: !!python/object/new:dynamic_reconfigure.encoding.Config
+                state: []
+              parent: 0
+              state: true
+              type: ''
+            state: []
+          kdtree_search_group: !!python/object/new:dynamic_reconfigure.encoding.Config
+            dictitems:
+              groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+                state: []
+              id: 2
+              intersting_object_inlier_percent: 0.891
+              kdtree_search_radius: 0.5940000000000001
+              max_points_interesting_obj: 146
+              name: kdtree_search_group
+              parameters: !!python/object/new:dynamic_reconfigure.encoding.Config
+                state: []
+              parent: 0
+              state: true
+              type: ''
+            state: []
+        state: []
+      id: 0
+      name: Default
+      parameters: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      parent: 0
+      show_cropped_output: true
+      show_floor_segmented_output: true
+      show_voxeled_output: true
+      state: true
+      type: ''
+      voxel_size: 0.1
+      x_crop_max: 30.0
+      x_crop_min: 4.2
+    state: []
+  intersting_object_inlier_percent: 0.891
+  kdtree_search_radius: 0.5940000000000001
+  max_cluster_points: 25000
+  max_points_interesting_obj: 146
+  min_cluster_points: 107
+  show_cropped_output: true
+  show_floor_segmented_output: true
+  show_voxeled_output: true
+  voxel_size: 0.1
+  x_crop_max: 30.0
+  x_crop_min: 4.2
+state: []

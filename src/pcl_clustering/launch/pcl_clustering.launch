@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="data_player" pkg="rosbag" type="play" args="$(find pcl_clustering)/sample_data/first_sample_data_2Hz.bag" output="screen"/>
+  <node name="clustering_node" pkg="pcl_clustering" type="clustering_node" output="screen">
+  </node>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pcl_clustering)/rviz/pcl_clustering.rviz" output="screen"/>
+  
+</launch>

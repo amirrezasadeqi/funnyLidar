@@ -47,5 +47,8 @@ qtcreator-*
 # Emacs
 .#*
 
+# Test Lidar Data
+src/pcl_clustering/sample_data/*.bag
+
 # Catkin custom files
 CATKIN_IGNORE
