@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+	<include file="$(find livox_ros_driver)/launch/livox_lidar.launch" />	
+	<node name="recorder" pkg="rosbag" type="record" args="-a" output="screen" />
+</launch>
+

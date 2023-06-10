@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+	<include file="$(find livox_mapping)/launch/mapping_horizon.launch" />
+	<include file="$(find livox_ros_driver)/launch/livox_lidar_msg.launch" />
+</launch>
