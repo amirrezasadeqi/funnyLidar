@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<robot name="avia_gps_pack">
+ <link name="package_base_link"/>
+ <link name="avia_base_link"/>
+ <link name="avia_pc_link"/>
+ <link name="avia_imu_link"/>
+ <link name="gps_link"/>
+ 
+
+ <joint name="avia_base_joint" type="fixed">
+   <parent link="package_base_link"/>
+   <child link="avia_base_link"/>
+   <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+ </joint>
+
+ <joint name="avia_pc_joint" type="fixed">
+   <parent link="avia_base_link"/>
+   <child link="avia_pc_link"/>
+   <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+ </joint>
+
+ <joint name="avia_imu_joint" type="fixed">
+   <parent link="avia_pc_link"/>
+   <child link="avia_imu_link"/>
+   <origin xyz="-0.04165 -0.02326 0.02840" rpy="0.0 0.0 0.0"/>
+ </joint>
+
+ <joint name="gps_joint" type="fixed">
+   <parent link="avia_pc_link"/>
+   <child link="gps_link"/>
+   <origin xyz="-0.0455 0.0 0.03240" rpy="0.0 0.0 0.0"/>
+ </joint>
+
+</robot>
