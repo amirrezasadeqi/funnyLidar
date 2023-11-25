@@ -23,21 +23,21 @@
 #include <visualization_msgs/Marker.h>
 
 // create the global objects listed below:
-// Particle filter tracker
+// Particle filter single_object_tracker
 pcl::tracking::ParticleFilterTracker<
     pcl::PointXYZ, pcl::tracking::ParticleXYZRPY>::Ptr tracker_;
 ros::Publisher ref_model_pub;
-ros::Publisher marker_pub;
+static ros::Publisher marker_pub;
 
 // create the callback function
 //  {
 //    --lock the global mutex if neccessary(if you use seperated threads
 //    for visualization and tracking, you may need the mutex lock,
 //    because even in tracker_ object are some points that you want to
-//    visualize and in the same time they change in the tracker callback
+//    visualize and in the same time they change in the single_object_tracker callback
 //    which may be a source of race condition.). preprocess input cloud
-//    if neccessary. give the preprocessed cloud as input to the tracker
-//    object. call the compute method of the tracker object.
+//    if neccessary. give the preprocessed cloud as input to the single_object_tracker
+//    object. call the compute method of the single_object_tracker object.
 //  }
 void pftracker_cb(const pcl::PCLPointCloud2ConstPtr &cloud) {
 
@@ -45,9 +45,9 @@ void pftracker_cb(const pcl::PCLPointCloud2ConstPtr &cloud) {
   pcl::PointCloud<pcl::PointXYZ>::Ptr tracker_in_cloud(
       new pcl::PointCloud<pcl::PointXYZ>);
   pcl::fromPCLPointCloud2(*cloud, *tracker_in_cloud);
-  // give the preprocessed cloud as input to the tracker object
+  // give the preprocessed cloud as input to the single_object_tracker object
   tracker_->setInputCloud(tracker_in_cloud);
-  // call the compute method of the tracker object
+  // call the compute method of the single_object_tracker object
   tracker_->compute();
   // Below code is for visualization, in future these lines may be moved into
   // another thread worker function.
@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
       new pcl::PointCloud<pcl::PointXYZ>);
   pcd_reader.read(pcd_path, *ref_cloud);
 
-  // 2. Setting up the covariance values used in particle filter tracker
+  // 2. Setting up the covariance values used in particle filter single_object_tracker
   //    and other neccessary parameters
   // I think this is the model uncertanity
   std::vector<double> default_step_covariance =
@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
       std::vector<double>(6, 0.00001);
   std::vector<double> default_initial_mean = std::vector<double>(6, 0.0);
 
-  // 3. create tracker object and setup its parameters
+  // 3. create single_object_tracker object and set up its parameters
 
   // 8 is number of threads used for tracking
   pcl::tracking::KLDAdaptiveParticleFilterOMPTracker<
@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
   bin_size.pitch = 0.1f;
   bin_size.yaw = 0.1f;
 
-  // setting up particle filter tracker's settings(I think these are the
+  // setting up particle filter single_object_tracker's settings(I think these are the
   // matching parameters)
   tracker->setMaximumParticleNum(1000);
   tracker->setDelta(0.99);
@@ -157,7 +157,7 @@ int main(int argc, char *argv[]) {
   pcl::tracking::ApproxNearestPairPointCloudCoherence<pcl::PointXYZ>::Ptr
       coherence(new pcl::tracking::ApproxNearestPairPointCloudCoherence<
                 pcl::PointXYZ>);
-  // 5. add coherence object to tracker
+  // 5. add coherence object to single_object_tracker
   pcl::tracking::DistanceCoherence<pcl::PointXYZ>::Ptr distance_coherence(
       new pcl::tracking::DistanceCoherence<pcl::PointXYZ>);
   coherence->addPointCoherence(distance_coherence);
@@ -183,7 +183,7 @@ int main(int argc, char *argv[]) {
   pcl::transformPointCloud<pcl::PointXYZ>(*ref_cloud, *ref_cloud_trasfered,
                                           trans.inverse());
   // 7. add the prepared reference model and its transformation into origin to
-  // the tracker object
+  // the single_object_tracker object
   tracker_->setReferenceCloud(ref_cloud_trasfered);
   tracker_->setTrans(trans);
 

@@ -7,7 +7,7 @@ project(pcl_clustering)
 # Find catkin macros and libraries if COMPONENTS list like find_package(catkin
 # REQUIRED COMPONENTS xyz) is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS pcl_conversions pcl_ros roscpp rospy
-                                        sensor_msgs dynamic_reconfigure)
+                                        sensor_msgs dynamic_reconfigure visualization_msgs)
 find_package(PCL REQUIRED COMPONENTS common filters segmentation)
 include_directories(${catkin_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
@@ -164,3 +164,7 @@ add_executable(cluster_avia_reconfigurable src/cluster_avia_reconfigurable.cpp)
 add_dependencies(cluster_avia_reconfigurable ${PROJECT_NAME}_gencfg)
 target_link_libraries(cluster_avia_reconfigurable ${catkin_LIBRARIES}
                       ${PCL_LIBRARIES})
+add_executable(cluster_avia_adaptive src/cluster_avia_adaptive.cpp
+        src/single_object_tracker.cpp
+        src/single_object_tracker.h)
+target_link_libraries(cluster_avia_adaptive ${catkin_LIBRARIES} ${PCL_LIBRARIES})
