@@ -7,7 +7,7 @@ project(pcl_clustering)
 # Find catkin macros and libraries if COMPONENTS list like find_package(catkin
 # REQUIRED COMPONENTS xyz) is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS pcl_conversions pcl_ros roscpp rospy
-                                        sensor_msgs dynamic_reconfigure)
+        sensor_msgs dynamic_reconfigure)
 find_package(PCL REQUIRED COMPONENTS common filters segmentation)
 include_directories(${catkin_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
@@ -77,8 +77,8 @@ generate_dynamic_reconfigure_options(cfg/pcl_clustering.cfg)
 # projects also need DEPENDS: system dependencies of this project that dependent
 # projects also need
 catkin_package(
-  # INCLUDE_DIRS include LIBRARIES pcl_clustering CATKIN_DEPENDS pcl_conversions
-  # pcl_ros roscpp rospy sensor_msgs DEPENDS system_lib
+        # INCLUDE_DIRS include LIBRARIES pcl_clustering CATKIN_DEPENDS pcl_conversions
+        # pcl_ros roscpp rospy sensor_msgs DEPENDS system_lib
 )
 
 # ##############################################################################
@@ -163,4 +163,14 @@ target_link_libraries(clustering_node ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 add_executable(cluster_avia_reconfigurable src/cluster_avia_reconfigurable.cpp)
 add_dependencies(cluster_avia_reconfigurable ${PROJECT_NAME}_gencfg)
 target_link_libraries(cluster_avia_reconfigurable ${catkin_LIBRARIES}
-                      ${PCL_LIBRARIES})
+        ${PCL_LIBRARIES})
+
+add_executable(singleTrackerNode src/singleTrackerNode.cpp
+        src/Track.cpp
+        src/Track.h
+        src/kalmanFilter.cpp
+        src/kalmanFilter.h)
+target_link_libraries(singleTrackerNode ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+
+add_executable(playGroundNode src/playGroundNode.cpp)
+target_link_libraries(playGroundNode ${catkin_LIBRARIES} ${PCL_LIBRARIES})

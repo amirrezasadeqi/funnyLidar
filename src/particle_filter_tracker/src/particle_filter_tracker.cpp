@@ -27,7 +27,7 @@
 pcl::tracking::ParticleFilterTracker<
     pcl::PointXYZ, pcl::tracking::ParticleXYZRPY>::Ptr tracker_;
 ros::Publisher ref_model_pub;
-ros::Publisher marker_pub;
+static ros::Publisher marker_pub;
 
 // create the callback function
 //  {
